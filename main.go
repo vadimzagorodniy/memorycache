@@ -33,7 +33,7 @@ func main() {
 	//fmt.Println(p)
 
 	p.Insert("test")
-	p2 := get(p.UUID)
+	p2 := Get(p.UUID)
 
 	p2.Insert("test2")
 	p.Insert("test3")
@@ -144,7 +144,9 @@ func (c *Profile) Delete(orderUUID string) *bool {
 	}
 }
 
-func get(UUID string) *Profile {
-
+func Get(UUID string) *Profile {
+	if profiles[UUID].IsExpiredTTL() {
+		return nil
+	}
 	return profiles[UUID]
 }

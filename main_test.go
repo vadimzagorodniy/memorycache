@@ -53,7 +53,7 @@ func TestProfile_Delete(t *testing.T) {
 func TestProfile_IsExpiredTTL(t *testing.T) {
 	p := New()
 	id := *p.Insert("test")
-
+	p2 := New()
 	time.Sleep(TTL + TTL)
 	answer := p.Insert("test2")
 	if answer != nil {
@@ -67,4 +67,10 @@ func TestProfile_IsExpiredTTL(t *testing.T) {
 	if answer3 != nil {
 		t.Errorf("Expected return of the function to be nil")
 	}
+
+	answer4 := Get(p2.UUID)
+	if answer4 != nil {
+		t.Errorf("Expected return of the function to be nil")
+	}
+
 }

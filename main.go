@@ -43,6 +43,7 @@ func main() {
 	fmt.Println(&p2)
 	fmt.Println(p)
 	fmt.Println(p2)
+
 	//fmt.Println(profiles)
 	//for _, order := range p.Orders {
 	//	fmt.Println(order.UUID, order.Value)

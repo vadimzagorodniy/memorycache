@@ -25,21 +25,25 @@ type Order struct {
 
 var TTL = time.Duration(time.Second * 2)
 
-var profiles = make(map[string]Profile)
+var profiles = make(map[string]*Profile)
 
 func main() {
 	p := New()
 
 	//fmt.Println(p)
-	p2 := get(p.UUID)
+
 	p.Insert("test")
+	p2 := get(p.UUID)
+
 	p2.Insert("test2")
-	//p.Insert("test2")
+	p.Insert("test3")
 	//p.Insert("test3")
 	//fmt.Println(p)
+	fmt.Println(&p)
+	fmt.Println(&p2)
 	fmt.Println(p)
 	fmt.Println(p2)
-	fmt.Println(profiles)
+	//fmt.Println(profiles)
 	//for _, order := range p.Orders {
 	//	fmt.Println(order.UUID, order.Value)
 	//	p.Set(order.UUID, "TEST")
@@ -60,7 +64,7 @@ func New() *Profile {
 		UUID:       uuid.NewString(),
 	}
 
-	profiles[profile.UUID] = profile
+	profiles[profile.UUID] = &profile
 
 	return &profile
 }
@@ -117,7 +121,6 @@ func (c *Profile) Insert(value interface{}) *string {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	})
-	profiles[c.UUID] = *c
 	return &id
 }
 
@@ -142,6 +145,6 @@ func (c *Profile) Delete(orderUUID string) *bool {
 }
 
 func get(UUID string) *Profile {
-	profile := profiles[UUID]
-	return &profile
+
+	return profiles[UUID]
 }
